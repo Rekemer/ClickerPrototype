@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a707e7c68a8381b4a9081f37d912d243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 8
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,11 +310,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -2.31
+  near clip plane: -9.56
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.45
+  orthographic size: 5.72
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -386,6 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f212378a9e258a42be4c47c7f345602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _height: 20
-  _width: 20
+  _height: 40
+  _width: 40
   _prefabGroundTile: {fileID: 1215020905533382, guid: 5b194fa772caaf74da04b9f5bcea0420, type: 3}
