@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 486130218}
   - component: {fileID: 486130220}
   - component: {fileID: 486130219}
+  - component: {fileID: 486130221}
   m_Layer: 5
   m_Name: KillAllBooster
   m_TagString: Untagged
@@ -459,6 +460,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486130217}
   m_CullTransparentMesh: 1
+--- !u!114 &486130221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486130217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23dcc0f854d08045802b84f985334c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &587777591
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +588,7 @@ GameObject:
   - component: {fileID: 724195882}
   - component: {fileID: 724195884}
   - component: {fileID: 724195883}
+  - component: {fileID: 724195885}
   m_Layer: 5
   m_Name: FreezeSpawnsBooster
   m_TagString: Untagged
@@ -640,6 +654,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724195881}
   m_CullTransparentMesh: 1
+--- !u!114 &724195885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724195881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23dcc0f854d08045802b84f985334c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &793153403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,6 +1044,7 @@ GameObject:
   - component: {fileID: 1745568256}
   - component: {fileID: 1745568258}
   - component: {fileID: 1745568257}
+  - component: {fileID: 1745568259}
   m_Layer: 5
   m_Name: KiilThatMonsterBooster
   m_TagString: Untagged
@@ -1082,6 +1109,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745568255}
   m_CullTransparentMesh: 1
+--- !u!114 &1745568259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745568255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23dcc0f854d08045802b84f985334c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2035263992
 GameObject:
   m_ObjectHideFlags: 0
