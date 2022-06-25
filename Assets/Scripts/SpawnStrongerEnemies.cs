@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 
-public class SpawnStrongerEnemies : MonoBehaviour,ISpawn
+public class SpawnStrongerEnemies :BaseSpawn
 {
-    public void Spawn()
+    public override void Spawn(Ground ground)
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < 5; i++)
+        {
+            Instantiate(objectToSpawn, ground.GetRandomPosition(),
+                Quaternion.LookRotation(new Vector3(-0.5f, 0f, -0.5f), Vector3.up));
+        }
     }
 }

@@ -17,6 +17,7 @@ public struct Field
         this.width = width;
     }
 }
+
 public abstract class BaseEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -26,31 +27,28 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] DifficultyEnemySettings _enemySettings;
     private bool _isMoving;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        Ground ground = FindObjectOfType<Ground>();
-        
+        _ground = FindObjectOfType<Ground>();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         var height = _ground.GroundHeight;
         var width = _ground.GroundWidth;
         allowedArea = new Field(0, 0, height, width);
+        _ground.AddEnemy(this);
+        transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
         Move();
     }
 
-    protected virtual Vector3 GetRandomPosition()
+    private void OnDestroy()
     {
-        float randomX = UnityEngine.Random.value;
-        float randomZ = UnityEngine.Random.value;
-        float xCoord = randomX * allowedArea.width;
-        float zCoord = randomZ * allowedArea.height;
-        Vector3 newPos = new Vector3(xCoord, 0, zCoord);
-        return newPos;
-
+        _ground.EraseEnemy(this);
     }
+
     
+
     protected virtual void Move()
     {
         StartCoroutine(MoveRoutine());
@@ -62,28 +60,20 @@ public abstract class BaseEnemy : MonoBehaviour
         float time;
         while (_isMoving)
         {
-            Vector3 newPos = GetRandomPosition();
+            Vector3 newPos = _ground.GetRandomPosition();
             time = 0;
-            while ((transform.position - newPos).sqrMagnitude < Vector3.kEpsilon)
+            int iter = 0;
+            while ((transform.position - newPos).sqrMagnitude > 4f && iter < 200)  
             {
                 time += Time.deltaTime;
-                float speed = _enemySettings.difficultySpeedCurve.Evaluate(time);
-                Vector3.MoveTowards(transform.position, newPos, speed * Time.deltaTime);
+                iter++;
+                float speed =4f;
+                transform.position = Vector3.MoveTowards(transform.position, newPos, speed * Time.deltaTime);
+                yield return null;
             }
+
             yield return new WaitForSeconds(_enemySettings.timeOfWaitingAfterReachingNewPos);
         }
-        
-    }
-    
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
 
-public class DefaultEnemy : BaseEnemy
-{
-    
+    }
 }
