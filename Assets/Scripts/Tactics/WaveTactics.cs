@@ -11,22 +11,15 @@ public class WaveTactics : EnemyTactics
     private GameObject _objectToSpawn;
     private Ground _ground;
     private float timeSinceSpawningStarted =0;
-    private int currentWave;
+    private int _currentWave;
 
     private void Start()
     {
         _difficulties = _difficultySpawnSettings.difficulties;
         if (_difficulties == null)
         {
-            Debug.LogWarning("DefaultDifficultySpawnSettings are not initialized");
+            Debug.LogError("DefaultDifficultySpawnSettings are not initialized");
             return;
-        }
-        for (int i = 0; i < _difficulties.Count - 1; i++)
-        {
-            if (_difficulties[i].time > _difficulties[i + 1].time)
-            {
-                Debug.LogWarning("WaveDifficultySpawnSettings: waves must be sorted in ascending order");
-            }
         }
     }
 
@@ -50,7 +43,6 @@ public class WaveTactics : EnemyTactics
     {
         int currentWave = 0;
         var timeSinceSpawningStarted = 0f;
-        var timeBetweenSpans = _difficultySpawnSettings.timeBetweenSpawns;
         var amountsOfEnemiesPerWave = _difficultySpawnSettings.amountOfEnemiesPerWave;
         while (true)
         {
@@ -61,13 +53,14 @@ public class WaveTactics : EnemyTactics
                 if (currentWave < _difficulties.Count - 1)
                 {
                     // spawn enemies according to the wave
-                    int amountOfEnemies = amountsOfEnemiesPerWave[this.currentWave];
+                    int amountOfEnemies = amountsOfEnemiesPerWave[this._currentWave];
+                    Debug.Log(_currentWave);
                     SpawnWave(amountOfEnemies);
                     //
                 }
                 else
                 {
-                    // There are no more waves left
+                    //  or there are no more waves left
                 }
                 
             }
@@ -95,13 +88,15 @@ public class WaveTactics : EnemyTactics
             var enemy = spawnedObject.GetComponent<BaseEnemy>();
             if (enemy)
             {
-                enemy.SetHealth(_difficulties[currentWave].enemyHealth);
-                enemy.SetSpeed(_difficulties[currentWave].enemySpeed);
+                enemy.SetHealth(_difficulties[_currentWave].enemyHealth);
+                enemy.SetSpeed(_difficulties[_currentWave].enemySpeed);
             }
 
             currAmount++;
             yield return new WaitForSeconds(_difficultySpawnSettings.timeBetweenSpawns);
         }
-        
+
+        _currentWave++;
+
     }
 }

@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     private Vector3 diffDir;
     [SerializeField] private LayerMask ClickableLayerMask;
     [SerializeField] private int _damage;
-
+    public bool CanMove { get; set; } = true;
     private void Awake()
     {
         _ground = FindObjectOfType<Ground>();
@@ -49,7 +49,12 @@ public class CameraController : MonoBehaviour
    
     void Update()
     {
-        Move();
+        if (CanMove)
+        {
+            Move();
+        }
+        Debug.Log(CanMove);
+        
         GetClicks();
     }
 

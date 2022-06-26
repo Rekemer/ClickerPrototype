@@ -17,7 +17,7 @@ MonoBehaviour:
     enemyHealth: 0
     enemySpeed: 5
   - time: 10
-    enemyHealth: 0
+    enemyHealth: 8
     enemySpeed: 10
   timeBetweenSpawns: 2
   timeBetweenSpawnsMultiplier: 0

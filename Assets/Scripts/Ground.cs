@@ -15,6 +15,7 @@ public class Ground : MonoBehaviour
     public int GroundHeight => _height;
     public int GroundWidth => _width;
     public int CountOfEnemies => _currentEnemies.Count;
+    public List<BaseEnemy> CurrentEnemies => _currentEnemies;
     public Vector2 GroundCenter => _groundCenter;
     // Start is called before the first frame update
     void Start()
@@ -51,7 +52,7 @@ public class Ground : MonoBehaviour
     {
         if (_currentEnemies.Contains(enemy))
         {
-            _currentEnemies.Add(enemy);
+            _currentEnemies.Remove(enemy);
         }
         
     }

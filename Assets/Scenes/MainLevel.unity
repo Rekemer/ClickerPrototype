@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &82198279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2663429092596346148, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
+  m_PrefabInstance: {fileID: 7951652123327086948}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454b696510e34e1d83fb7cd4aa065954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &363266052
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +183,7 @@ MonoBehaviour:
   ClickableLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  _damage: 2
+  _damage: 1
 --- !u!114 &363266055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,22 +426,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f212378a9e258a42be4c47c7f345602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _height: 40
-  _width: 40
+  _height: 10
+  _width: 10
   _prefabGroundTile: {fileID: 1215020905533382, guid: 5b194fa772caaf74da04b9f5bcea0420, type: 3}
   _spawns:
   - {fileID: 628953320}
---- !u!114 &1258414704 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7746642560343280162, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
-  m_PrefabInstance: {fileID: 7951652123327086948}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86ac9b5dcf1b425f9b311498af581423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1992310064
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 2733002778984098551, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
       propertyPath: _enemyTactics
       value: 
-      objectReference: {fileID: 1258414704}
+      objectReference: {fileID: 82198279}
     - target: {fileID: 5261627894515090944, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
       propertyPath: m_Name
       value: DefaultEnemySpawn
