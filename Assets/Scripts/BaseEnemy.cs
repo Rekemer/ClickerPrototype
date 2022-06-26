@@ -20,23 +20,23 @@ public struct Field
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    protected Field allowedArea;
+  
     private Ground _ground;
-
-    [SerializeField] DifficultyEnemySettings _enemySettings;
+    
+    private float _health;
+    private float _speed;
+    private float _timeOfWaitingAfterReachingNewPos ;
     private bool _isMoving;
 
     protected virtual void Awake()
     {
         _ground = FindObjectOfType<Ground>();
     }
-
+    
     protected virtual void Start()
     {
         var height = _ground.GroundHeight;
         var width = _ground.GroundWidth;
-        allowedArea = new Field(0, 0, height, width);
         _ground.AddEnemy(this);
         transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
         Move();
@@ -47,8 +47,19 @@ public abstract class BaseEnemy : MonoBehaviour
         _ground.EraseEnemy(this);
     }
 
+    public void SetHealth(int health)
+    {
+        _health = health;
+        
+    }
+    public void SetSpeed(int speed)
+    {
+        _speed = speed;
+    }
+    public virtual void ChangeDifficulty()
+    {
+    }
     
-
     protected virtual void Move()
     {
         StartCoroutine(MoveRoutine());
@@ -67,12 +78,11 @@ public abstract class BaseEnemy : MonoBehaviour
             {
                 time += Time.deltaTime;
                 iter++;
-                float speed =4f;
-                transform.position = Vector3.MoveTowards(transform.position, newPos, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, newPos, _speed * Time.deltaTime);
                 yield return null;
             }
 
-            yield return new WaitForSeconds(_enemySettings.timeOfWaitingAfterReachingNewPos);
+            yield return new WaitForSeconds(_timeOfWaitingAfterReachingNewPos);
         }
 
     }

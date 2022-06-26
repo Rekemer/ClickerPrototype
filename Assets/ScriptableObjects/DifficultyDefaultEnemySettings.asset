@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: DifficultyDefaultEnemySettings
   m_EditorClassIdentifier: 
   difficultyHealthCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: 1
       outSlope: 1
@@ -24,8 +22,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: 1
       inSlope: 1
       outSlope: 1
@@ -37,22 +34,19 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   difficultySpeedCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0.23096377
+    - time: 0.23096377
       value: 1.4976221
-      inSlope: 0.0011762956
-      outSlope: 0.0011762956
+      inSlope: 0.05584996
+      outSlope: 0.05584996
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 2.7972717
-      value: 1.5006409
-      inSlope: 0.0011762956
-      outSlope: 0.0011762956
+    - time: 62.997448
+      value: 5.0031276
+      inSlope: 0.05584996
+      outSlope: 0.05584996
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
