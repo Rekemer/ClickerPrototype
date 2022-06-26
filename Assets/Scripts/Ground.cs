@@ -11,6 +11,7 @@ public class Ground : MonoBehaviour
     [SerializeField] private GameObject _prefabGroundTile;
     [SerializeField] private List<BaseSpawn> _spawns;
     private List<BaseEnemy> _currentEnemies= new List<BaseEnemy>();
+    private List<BaseEnemy> _deadEnemies= new List<BaseEnemy>();
     private Vector2 _groundCenter;
     public int GroundHeight => _height;
     public int GroundWidth => _width;
@@ -33,6 +34,24 @@ public class Ground : MonoBehaviour
         StartSpawning();
 
     }
+
+    private void LateUpdate()
+    {
+        foreach (var enemy in _currentEnemies)
+        {
+            if (enemy.GetState() == State.DEAD)
+            {
+                _deadEnemies.Add(enemy);
+            }
+        }
+
+        for (int i = 0; i < _deadEnemies.Count; i++)
+        {
+            Destroy(_deadEnemies[i].gameObject);   
+        }
+        _deadEnemies.Clear();
+    }
+
     public  Vector3 GetRandomPosition()
     {
         float randomX = UnityEngine.Random.value;

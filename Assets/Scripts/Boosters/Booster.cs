@@ -15,33 +15,36 @@ public abstract class Booster : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
-        var objects = FindSceneObjects("MainLevel");
-        foreach (var obj in objects)
-        {
-            if (obj.transform.childCount == 1)
-            {
-                var camera = obj.transform.GetChild(0);
-                if (camera)
-                {
-                    _camera = camera.GetComponent<Camera>();
-                    _cameraController = obj.GetComponent<CameraController>();
-                }
-            }
-          
-            var ground = obj.GetComponent<Ground>();
-           
-
-            if (ground)
-            {
-                _ground = ground;
-            }
-        }
+        _camera = FindObjectOfType<Camera>();
+        _cameraController = _camera.transform.parent.GetComponent<CameraController>();
+        _ground = FindObjectOfType<Ground>();
+        // var objects = FindSceneObjects("MainLevel");
+        // foreach (var obj in objects)
+        // {
+        //     if (obj.transform.childCount == 1)
+        //     {
+        //         var camera = obj.transform.GetChild(0);
+        //         if (camera)
+        //         {
+        //             _camera = camera.GetComponent<Camera>();
+        //             _cameraController = obj.GetComponent<CameraController>();
+        //         }
+        //     }
+        //   
+        //     var ground = obj.GetComponent<Ground>();
+        //    
+        //
+        //     if (ground)
+        //     {
+        //         _ground = ground;
+        //     }
+        // }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -65,8 +68,6 @@ public abstract class Booster : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         Vector3 onScreen;
         //RectTransformUtility.ScreenPointToWorldPointInRectangle(rect, eventData.position,_camera, out onScreen);
         onScreen = _camera.ScreenToWorldPoint(transform.position);
-        
-        // cast a raycast 
     }
 
     public void OnEndDrag(PointerEventData eventData)

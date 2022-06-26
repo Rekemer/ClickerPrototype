@@ -2,20 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public struct Field
-{
-    public int x;
-    public int y;
-    public int height;
-    public int width;
 
-    public Field(int x, int y, int height, int width)
-    {
-        this.x = x;
-        this.y = y;
-        this.height = height;
-        this.width = width;
-    }
+public enum State
+{
+    ACTIVE,
+    DEAD
 }
 
 public abstract class BaseEnemy : MonoBehaviour
@@ -27,7 +18,7 @@ public abstract class BaseEnemy : MonoBehaviour
     private float _speed;
     private float _timeOfWaitingAfterReachingNewPos ;
     private bool _isMoving;
-
+    private State _state;
     protected virtual void Awake()
     {
         _ground = FindObjectOfType<Ground>();
@@ -35,6 +26,7 @@ public abstract class BaseEnemy : MonoBehaviour
     
     protected virtual void Start()
     {
+        _state = State.ACTIVE;
         var height = _ground.GroundHeight;
         var width = _ground.GroundWidth;
         _ground.AddEnemy(this);
@@ -42,11 +34,7 @@ public abstract class BaseEnemy : MonoBehaviour
         Move();
     }
 
-    private void OnDestroy()
-    {
-        _ground.EraseEnemy(this);
-    }
-
+   
     public void SetHealth(int health)
     {
         _health = health;
@@ -64,8 +52,16 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         StartCoroutine(MoveRoutine());
     }
-    
-    
+
+    public State GetState()
+    {
+        return _state;
+    }
+
+    public void SetState(State newState)
+    {
+        _state = newState;
+    }
     
     IEnumerator MoveRoutine()
     {
@@ -94,9 +90,14 @@ public abstract class BaseEnemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
-            _ground.EraseEnemy(this);
+            SetState(State.DEAD);
             // play some effect or animation or sound
-            Destroy(gameObject);
+           
         }
+    }
+
+    private void OnDestroy()
+    {
+        _ground.EraseEnemy(this);
     }
 }

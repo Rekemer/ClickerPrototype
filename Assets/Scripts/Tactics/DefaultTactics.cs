@@ -81,6 +81,5 @@ public class DefaultTactics : EnemyTactics
             // check exit condition
             yield return null;
         }
-        yield return null;
     }
 }

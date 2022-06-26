@@ -4,6 +4,7 @@ class KillMonsterBooster : Booster
 {
     protected override void ApplyBooster()
     {
-        throw new NotImplementedException();
+        var onScreen = _camera.ScreenToWorldPoint(transform.position);
+        
     }
 }

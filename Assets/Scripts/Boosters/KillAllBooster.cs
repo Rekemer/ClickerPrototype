@@ -7,14 +7,10 @@ class KillAllBooster : Booster
     protected override void ApplyBooster()
     {
         List<BaseEnemy> enemies = _ground.CurrentEnemies;
-        for (int i=0; i < enemies.Count; i++)
+        foreach (var enemy in enemies)
         {
-            if (enemies[i] != null)
-            {
-                enemies[i].GetDamage(100);
-            }
-           
+            enemy.SetState(State.DEAD);
         }
-        enemies.Clear();
+        
     }
 }
