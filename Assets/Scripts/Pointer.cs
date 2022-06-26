@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class Pointer : MonoBehaviour
     {
         private BaseEnemy _enemyToPointTo;
+
+        private void Awake()
+        {
+            _enemyToPointTo = null;
+        }
 
         public void SetEnemy(BaseEnemy enemy)
         {
