@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 public class DefaultTactics : EnemyTactics
@@ -10,7 +12,8 @@ public class DefaultTactics : EnemyTactics
     private Ground _ground;
     private float timeSinceSpawningStarted =0;
     private int currentDifficulty;
-
+    private float  _freezingTime;
+    
     public void Start()
     {
         _difficulties = _difficultySpawnSettings.difficulties;
@@ -26,6 +29,8 @@ public class DefaultTactics : EnemyTactics
                 Debug.LogWarning("DefaultDifficultySpawnSettings: time  must be sorted in ascending order");
             }
         }
+
+        EventSystem.current.OnUsingBooster += SetFreezingTime;
     }
 
     public override void StartSpawning(Ground ground,GameObject objectToSpawn )
@@ -41,6 +46,17 @@ public class DefaultTactics : EnemyTactics
         StartCoroutine(StartSpawningRoutine());
     }
 
+    private void SetFreezingTime(float time)
+    {
+        _freezingTime = time;
+        Invoke("UnsetFreezingTime",_freezingTime);
+    }
+
+    private void UnsetFreezingTime()
+    {
+        _freezingTime = 0;
+    }
+    
     public IEnumerator StartSpawningRoutine()
     {
         //int iter = 0;
@@ -79,7 +95,13 @@ public class DefaultTactics : EnemyTactics
                 
             }
             // check exit condition
-            yield return null;
+           
+            yield return new WaitForSeconds(_freezingTime);
         }
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.current.OnUsingBooster -= SetFreezingTime;
     }
 }

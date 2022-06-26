@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEditor;
 using UnityEngine;
 
@@ -65,6 +66,7 @@ public class Ground : MonoBehaviour
     public void AddEnemy(BaseEnemy enemy)
     {
         _currentEnemies.Add(enemy);
+        EventSystem.current.OnSpawnEnemies(CountOfEnemies);
     }
 
     public void EraseEnemy(BaseEnemy enemy)

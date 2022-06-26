@@ -20,4 +20,4 @@ MonoBehaviour:
     enemyHealth: 5
     enemySpeed: 1
   timeBetweenSpawns: 2
-  amountOfEnemiesPerWave: 0200000004000000
+  amountOfEnemiesPerWave: 0a00000004000000

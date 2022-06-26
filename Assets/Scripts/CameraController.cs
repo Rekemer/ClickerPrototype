@@ -53,8 +53,7 @@ public class CameraController : MonoBehaviour
         {
             Move();
         }
-        Debug.Log(CanMove);
-        
+
         GetClicks();
     }
 

@@ -54,7 +54,7 @@ public class WaveTactics : EnemyTactics
                 {
                     // spawn enemies according to the wave
                     int amountOfEnemies = amountsOfEnemiesPerWave[this._currentWave];
-                    Debug.Log(_currentWave);
+                    // Debug.Log(_currentWave);
                     SpawnWave(amountOfEnemies);
                     //
                 }
