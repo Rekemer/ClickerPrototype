@@ -88,4 +88,15 @@ public abstract class BaseEnemy : MonoBehaviour
         }
 
     }
+
+    public void GetDamage(int damage)
+    {
+        _health -= damage;
+        if (_health <= 0)
+        {
+            _ground.EraseEnemy(this);
+            // play some effect or animation or sound
+            Destroy(gameObject);
+        }
+    }
 }

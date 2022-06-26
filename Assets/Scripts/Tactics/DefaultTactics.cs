@@ -49,15 +49,8 @@ public class DefaultTactics : EnemyTactics
         var currentTime = 0f;
         while (true)
         {
-          //  iter++;
             currentTime+=Time.deltaTime;
             timeSinceSpawningStarted += Time.deltaTime;
-            // if (iter > 1000)
-            // {
-            //     break;
-            // }
-
-            // change difficulty
             if (currentDifficulty < _difficulties.Count - 1)
             {
                 if (timeSinceSpawningStarted > _difficulties[currentDifficulty].time)

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5e1a77f4ba4af6b082e786aad0f37b, type: 3}
   m_Name: DefaultDifficultySpawnSettings
   m_EditorClassIdentifier: 
-  _difficulties:
+  difficulties:
   - time: 5
-    enemyHealth: 2
-    enemySpeed: 6
+    enemyHealth: 0
+    enemySpeed: 5
   - time: 10
-    enemyHealth: 5
-    enemySpeed: 12
+    enemyHealth: 0
+    enemySpeed: 10
   timeBetweenSpawns: 2
-  timeMultiplier: 0
+  timeBetweenSpawnsMultiplier: 0

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd1e63b3a25416189b19befd0525785, type: 3}
   m_Name: WaveDifficultySpawnSettings
   m_EditorClassIdentifier: 
-  difficulties: []
-  timeBetweenSpawns: 0
-  amountOfEnemiesPerWave: 
+  difficulties:
+  - time: 0
+    enemyHealth: 4
+    enemySpeed: 1
+  - time: 0
+    enemyHealth: 5
+    enemySpeed: 1
+  timeBetweenSpawns: 2
+  amountOfEnemiesPerWave: 0200000004000000
