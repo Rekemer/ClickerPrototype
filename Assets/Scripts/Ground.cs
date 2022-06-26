@@ -14,7 +14,7 @@ public class Ground : MonoBehaviour
     private Vector2 _groundCenter;
     public int GroundHeight => _height;
     public int GroundWidth => _width;
-    
+    public int CountOfEnemies => _currentEnemies.Count;
     public Vector2 GroundCenter => _groundCenter;
     // Start is called before the first frame update
     void Start()

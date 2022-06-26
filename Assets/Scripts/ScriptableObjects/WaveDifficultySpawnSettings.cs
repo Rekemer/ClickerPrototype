@@ -6,5 +6,5 @@ public class WaveDifficultySpawnSettings : ScriptableObject
 {
     public List<Difficulty> difficulties;
     public float timeBetweenSpawns;
-    public float amountOfEnemies;
+    public List<int> amountOfEnemiesPerWave;
 }

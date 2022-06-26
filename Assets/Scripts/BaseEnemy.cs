@@ -64,7 +64,9 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         StartCoroutine(MoveRoutine());
     }
-
+    
+    
+    
     IEnumerator MoveRoutine()
     {
         _isMoving = true;

@@ -42,16 +42,65 @@ public class WaveTactics : EnemyTactics
         StartCoroutine(StartSpawningRoutine());
     }
 
+    private bool AreThereEnemies()
+    {
+        return _ground.CountOfEnemies > 0 ? true : false;
+    }
     IEnumerator StartSpawningRoutine()
     {
-        var currentTime = 0f;
+        int currentWave = 0;
         var timeSinceSpawningStarted = 0f;
         var timeBetweenSpans = _difficultySpawnSettings.timeBetweenSpawns;
+        var amountsOfEnemiesPerWave = _difficultySpawnSettings.amountOfEnemiesPerWave;
         while (true)
         {
             timeSinceSpawningStarted += Time.deltaTime;
-            currentTime+=Time.deltaTime;
+            // check if there are any enemies - ground 
+            if (!AreThereEnemies())
+            {
+                if (currentWave < _difficulties.Count - 1)
+                {
+                    // spawn enemies according to the wave
+                    int amountOfEnemies = amountsOfEnemiesPerWave[this.currentWave];
+                    SpawnWave(amountOfEnemies);
+                    //
+                }
+                else
+                {
+                    // There are no more waves left
+                }
+                
+            }
+           
+            
             yield return null;
+        }
+        
+    }
+
+    private void SpawnWave(int amountOfEnemies)
+    {
+        StartCoroutine(SpawnWaveRoutine(amountOfEnemies));
+    }
+
+    IEnumerator SpawnWaveRoutine(int amountOfEnemies)
+    {
+        int currAmount = 0;
+        while (currAmount < amountOfEnemies)
+        {
+            var pos = _ground.GetRandomPosition();
+            var spawnedObject = Instantiate(_objectToSpawn,pos, 
+                Quaternion.LookRotation(new Vector3(-0.5f, 0f, -0.5f), Vector3.up));
+            // spawn enemies with correct settings
+            var enemy = spawnedObject.GetComponent<BaseEnemy>();
+            if (enemy)
+            {
+                enemy.SetHealth(_difficulties[currentWave].enemyHealth);
+                enemy.SetSpeed(_difficulties[currentWave].enemySpeed);
+            }
+
+            currAmount++;
+            yield return new WaitForSeconds(_difficultySpawnSettings.timeBetweenSpawns);
         }
         
     }
