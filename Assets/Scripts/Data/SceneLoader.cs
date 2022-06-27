@@ -24,5 +24,10 @@ namespace Data
             int currIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(currIndex);
         }
+
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
     }
 }
