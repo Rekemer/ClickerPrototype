@@ -1,0 +1,16 @@
+{
+    "name": "Boosters",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8bcd7e9ecd04bfe4191c11732c0c208a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
