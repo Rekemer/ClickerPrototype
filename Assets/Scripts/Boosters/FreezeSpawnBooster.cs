@@ -9,6 +9,10 @@ namespace Boosters
         protected override void ApplyBooster()
         {
             EventSystem.current.OnUsingFreezingBooster(timeOfFreezing);
+            if (_audio != null)
+            {
+                _audio.Play();
+            }
         }
     }
 }

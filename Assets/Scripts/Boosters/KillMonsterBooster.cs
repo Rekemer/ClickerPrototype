@@ -15,6 +15,10 @@ namespace Boosters
                 if (enemy)
                 {
                     enemy.SetState(State.DEAD);
+                    if (_audio != null)
+                    {
+                        _audio.Play();
+                    };
                 }
             }
         }

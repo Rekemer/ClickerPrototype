@@ -14,8 +14,10 @@ namespace Boosters
         protected Camera _camera;
         protected Ground _ground;
         protected CameraController _cameraController;
+         protected AudioSource _audio;
         private void Awake()
         {
+            _audio = GetComponent<AudioSource>();
             rect = GetComponent<RectTransform>();
             _camera = FindObjectOfType<Camera>();
             _cameraController = _camera.transform.parent.GetComponent<CameraController>();
