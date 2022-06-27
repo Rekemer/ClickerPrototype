@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using Core;
 
-public class BonusSpawn :BaseSpawn
+namespace Spawns
 {
-    
-    public override void Spawn(Ground ground)
+    public class BonusSpawn :BaseSpawn
     {
+    
+        public override void Spawn(Ground ground)
+        {
         
+        }
     }
 }

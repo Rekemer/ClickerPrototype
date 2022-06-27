@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions.Comparers;
+using Core;
 
-class KillAllBooster : Booster
+namespace Boosters
 {
-    protected override void ApplyBooster()
+    class KillAllBooster : Booster
     {
-        List<BaseEnemy> enemies = _ground.CurrentEnemies;
-        foreach (var enemy in enemies)
+        protected override void ApplyBooster()
         {
-            enemy.SetState(State.DEAD);
-        }
+            List<BaseEnemy> enemies = _ground.CurrentEnemies;
+            foreach (var enemy in enemies)
+            {
+                enemy.SetState(State.DEAD);
+            }
         
+        }
     }
 }

@@ -15,9 +15,9 @@ MonoBehaviour:
   difficulties:
   - time: 5
     enemyHealth: 0
-    enemySpeed: 5
+    enemySpeed: 1
   - time: 10
     enemyHealth: 8
-    enemySpeed: 10
+    enemySpeed: 2
   timeBetweenSpawns: 2
   timeBetweenSpawnsMultiplier: 0

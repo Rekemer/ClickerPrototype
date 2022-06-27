@@ -3,101 +3,136 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State
+namespace Core
 {
-    ACTIVE,
-    DEAD
-}
+    public enum State
+    {
+        ACTIVE,
+        DEAD
+    }
 
-public abstract class BaseEnemy : MonoBehaviour
-{
+    public abstract class BaseEnemy : MonoBehaviour
+    {
   
-    private Ground _ground;
-    
-    private float _health;
-    private float _speed;
-    private float _timeOfWaitingAfterReachingNewPos ;
-    private bool _isMoving;
-    private State _state;
-    protected virtual void Awake()
-    {
-        _ground = FindObjectOfType<Ground>();
-    }
-    
-    protected virtual void Start()
-    {
-        _state = State.ACTIVE;
-        var height = _ground.GroundHeight;
-        var width = _ground.GroundWidth;
-        _ground.AddEnemy(this);
-        transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
-        Move();
-    }
-
-   
-    public void SetHealth(int health)
-    {
-        _health = health;
-        
-    }
-    public void SetSpeed(int speed)
-    {
-        _speed = speed;
-    }
-    public virtual void ChangeDifficulty()
-    {
-    }
-    
-    protected virtual void Move()
-    {
-        StartCoroutine(MoveRoutine());
-    }
-
-    public State GetState()
-    {
-        return _state;
-    }
-
-    public void SetState(State newState)
-    {
-        _state = newState;
-    }
-    
-    IEnumerator MoveRoutine()
-    {
-        _isMoving = true;
-        float time;
-        while (_isMoving)
+        private Ground _ground;
+        private Animator _animator;
+        private float _health;
+        private float _speed;
+        private float _timeOfWaitingAfterReachingNewPos ;
+        private bool _isMoving;
+        private State _state;
+        protected virtual void Awake()
         {
-            Vector3 newPos = _ground.GetRandomPosition();
-            time = 0;
-            int iter = 0;
-            while ((transform.position - newPos).sqrMagnitude > 4f && iter < 200)  
+            _ground = FindObjectOfType<Ground>();
+            _animator = GetComponent<Animator>();
+        }
+    
+        protected virtual void Start()
+        {
+            _state = State.ACTIVE;
+            var height = _ground.GroundHeight;
+            var width = _ground.GroundWidth;
+            _ground.AddEnemy(this);
+            transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
+            Move();
+        }
+
+        public abstract float GetPoints();
+
+        public void SetIsMoving(bool state)
+        {
+            _isMoving = state;
+        }
+        public void SetHealth(int health)
+        {
+            _health = health;
+        
+        }
+        public void SetSpeed(int speed)
+        {
+            _speed = speed;
+        }
+        
+    
+        protected virtual void Move()
+        {
+            StartCoroutine(MoveRoutine());
+        }
+
+        public State GetState()
+        {
+            return _state;
+        }
+
+        public void SetState(State newState)
+        {
+            _state = newState;
+        }
+    
+        IEnumerator MoveRoutine()
+        {
+            _isMoving = true;
+            float time;
+            bool isStanding = false;
+            while (_isMoving )
             {
-                time += Time.deltaTime;
-                iter++;
-                transform.position = Vector3.MoveTowards(transform.position, newPos, _speed * Time.deltaTime);
-                yield return null;
+                Vector3 newPos = _ground.GetRandomPosition();
+                transform.rotation = Quaternion.LookRotation(( newPos -transform.position ).normalized,Vector3.up);
+                time = 0;
+                int iter = 0;
+                while ((transform.position - newPos).sqrMagnitude > 4f && iter < 200)
+                {
+                    isStanding = false;
+                    if (_animator)
+                    {
+                        _animator.SetBool("isStanding",isStanding);
+                    }
+                    
+                
+                    time += Time.deltaTime;
+                    iter++;
+                    transform.position = Vector3.MoveTowards(transform.position, newPos, _speed * Time.deltaTime);
+                    
+                    yield return null;
+                }
+
+                isStanding = true;
+                if (_animator)
+                {
+                    _animator.SetBool("isStanding",isStanding);
+                }
+                yield return new WaitForSeconds(_timeOfWaitingAfterReachingNewPos);
             }
 
-            yield return new WaitForSeconds(_timeOfWaitingAfterReachingNewPos);
         }
 
-    }
-
-    public void GetDamage(int damage)
-    {
-        _health -= damage;
-        if (_health <= 0)
+        public void GetDamage(int damage)
         {
-            SetState(State.DEAD);
-            // play some effect or animation or sound
-           
-        }
-    }
+            _health -= damage;
+            if (_health <= 0)
+            {
+               
+                if (_animator)
+                {
+                    _animator.SetBool("isDead",true);
+                    SetIsMoving(false);
+                }
 
-    private void OnDestroy()
-    {
-        _ground.EraseEnemy(this);
+                // play some effect or animation or sound
+                StartCoroutine(SetStateAfterTimeRoutine(State.DEAD,2.5f));
+               
+
+            }
+        }
+
+        IEnumerator SetStateAfterTimeRoutine(State state, float time)
+        {
+            yield return new WaitForSeconds(time);
+            SetState(state);
+        }
+        private void OnDestroy()
+        {
+            _ground.EraseEnemy(this);
+        }
     }
 }

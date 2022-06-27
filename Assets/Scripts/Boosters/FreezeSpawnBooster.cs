@@ -1,13 +1,14 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 using EventSystem = DefaultNamespace.EventSystem;
 
-class FreezeSpawnBooster : Booster
+namespace Boosters
 {
-    [SerializeField] private float timeOfFreezing;
-    protected override void ApplyBooster()
+    class FreezeSpawnBooster : Booster
     {
-      EventSystem.current.OnUsingFreezingBooster(timeOfFreezing);
+        [SerializeField] private float timeOfFreezing;
+        protected override void ApplyBooster()
+        {
+            EventSystem.current.OnUsingFreezingBooster(timeOfFreezing);
+        }
     }
 }

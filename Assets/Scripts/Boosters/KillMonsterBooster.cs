@@ -1,18 +1,21 @@
-﻿using System;
+﻿using Core;
 using UnityEngine;
 
-class KillMonsterBooster : Booster
+namespace Boosters
 {
-    protected override void ApplyBooster()
+    class KillMonsterBooster : Booster
     {
-        var ray = _camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit))
+        protected override void ApplyBooster()
         {
-            var enemy = hit.transform.GetComponent<BaseEnemy>();
-            if (enemy)
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit = new RaycastHit();
+            if (Physics.Raycast(ray, out hit))
             {
-                enemy.SetState(State.DEAD);
+                var enemy = hit.transform.GetComponent<BaseEnemy>();
+                if (enemy)
+                {
+                    enemy.SetState(State.DEAD);
+                }
             }
         }
     }

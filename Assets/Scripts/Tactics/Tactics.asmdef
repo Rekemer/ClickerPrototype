@@ -1,0 +1,17 @@
+{
+    "name": "Tactics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8bcd7e9ecd04bfe4191c11732c0c208a",
+        "GUID:a77255967a8dc8d4bbe675bc3637b901"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

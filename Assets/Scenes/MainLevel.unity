@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 5a1ace533b622a5418efec7e5e443eb1, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -417,18 +417,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _height: 20
   _width: 20
-  _prefabGroundTile: {fileID: 1215020905533382, guid: 5b194fa772caaf74da04b9f5bcea0420, type: 3}
+  _maxAmountOfEnemies: 10
+  _prefabGroundTile: {fileID: 1606643988052616, guid: 8bf7087f7bb7a1844a75fc35b8267a0f, type: 3}
   _spawns:
   - {fileID: 628953320}
---- !u!114 &1405419716 stripped
+--- !u!114 &1724758778 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7746642560343280162, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2663429092596346148, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
   m_PrefabInstance: {fileID: 7951652123327086948}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86ac9b5dcf1b425f9b311498af581423, type: 3}
+  m_Script: {fileID: 11500000, guid: 454b696510e34e1d83fb7cd4aa065954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1743994472
@@ -558,7 +559,7 @@ PrefabInstance:
     - target: {fileID: 2733002778984098551, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
       propertyPath: _enemyTactics
       value: 
-      objectReference: {fileID: 1405419716}
+      objectReference: {fileID: 1724758778}
     - target: {fileID: 5261627894515090944, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
       propertyPath: m_Name
       value: DefaultEnemySpawn

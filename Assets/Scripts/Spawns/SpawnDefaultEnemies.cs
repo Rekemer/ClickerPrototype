@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+﻿using Core;
+using Tactics;
+using UnityEngine;
 
-public class SpawnDefaultEnemies : BaseSpawn
+namespace Spawns
 {
-    [SerializeField] private EnemyTactics _enemyTactics;
-
-    public override void Spawn(Ground ground)
+    public class SpawnDefaultEnemies : BaseSpawn
     {
-        _enemyTactics.StartSpawning(ground, objectToSpawn);
+        [SerializeField] private EnemyTactics _enemyTactics;
+
+        public override void Spawn(Ground ground)
+        {
+            _enemyTactics.StartSpawning(ground, objectToSpawn);
+        }
     }
 }

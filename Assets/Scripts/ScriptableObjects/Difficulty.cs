@@ -1,9 +1,12 @@
 ﻿using System;
 
-[Serializable]
-public struct Difficulty
+namespace ScriptableObjects
 {
-    public int time;
-    public int enemyHealth; 
-    public int enemySpeed;
+    [Serializable]
+    public struct Difficulty
+    {
+        public int time;
+        public int enemyHealth; 
+        public int enemySpeed;
+    }
 }
