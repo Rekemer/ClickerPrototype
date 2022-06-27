@@ -22,20 +22,21 @@ namespace Core
         private float _timeOfWaitingAfterReachingNewPos ;
         private bool _isMoving;
         private State _state;
-        [SerializeField] private Image _healthBar;
-        private Material _healthBarMaterial;
-        private float maxHealth;
+
+        [SerializeField]
+        private HealthBar _healthBar;
+       
         protected virtual void Awake()
         {
             _ground = FindObjectOfType<Ground>();
             _animator = GetComponent<Animator>();
-            _healthBarMaterial = _healthBar.GetComponent<Image>().material;
+           
         }
     
         protected virtual void Start()
         {
             _state = State.ACTIVE;
-            maxHealth = _health;
+           
             _ground.AddEnemy(this);
             transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
             Move();
@@ -49,6 +50,7 @@ namespace Core
         }
         public void SetHealth(int health)
         {
+            _healthBar.SetMaxHealth(health);
             _health = health;
         
         }
@@ -113,7 +115,7 @@ namespace Core
         public void GetDamage(int damage)
         {
             _health -= damage;
-            _healthBarMaterial.SetFloat("_Health",_health/maxHealth);
+            _healthBar.UpdateHealth(_health);
             if (_health <= 0)
             {
                

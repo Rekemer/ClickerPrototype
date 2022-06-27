@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7efda3ebca468697f30c3b4e221a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 2670015399722017175}
+  _healthBar: {fileID: 2670015401308002896}
   _score: {fileID: 11400000, guid: b85950c4347811240820a833d4fc43cc, type: 2}
 --- !u!135 &7105490891424477227
 SphereCollider:
@@ -663,14 +663,3 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7274293013524437667, guid: 732d348772bb3ad429f584424b2da2b2, type: 3}
   m_PrefabInstance: {fileID: 4755438541116947250}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2670015399722017175 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7274293013524437669, guid: 732d348772bb3ad429f584424b2da2b2, type: 3}
-  m_PrefabInstance: {fileID: 4755438541116947250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2670015399722017169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

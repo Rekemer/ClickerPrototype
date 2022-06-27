@@ -57,6 +57,12 @@ namespace Core
         private void Move()
         {
             var mousePos = Input.mousePosition;
+            RaycastHit hit;
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, ClickableLayerMask))
+            {
+                return;
+            }
             var worldCurrPos = _camera.ScreenToWorldPoint(currPos);
             var worldFirstPos = _camera.ScreenToWorldPoint(firstPos);
             worldCurrPos.z = 10;
