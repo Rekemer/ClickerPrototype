@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 16
-  ClickableLayerMask:
+  _clickableLayerMask:
     serializedVersion: 2
     m_Bits: 64
   _damage: 1

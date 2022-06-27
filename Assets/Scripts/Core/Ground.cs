@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
-using Spawns;
 using UnityEngine;
 
 namespace Core
@@ -13,21 +11,20 @@ namespace Core
         [SerializeField] private int _maxAmountOfEnemies;
         [SerializeField] private GameObject _prefabGroundTile;
         [SerializeField] private List<BaseSpawn> _spawns;
-        private List<BaseEnemy> _currentEnemies= new List<BaseEnemy>();
-        private List<BaseEnemy> _deadEnemies= new List<BaseEnemy>();
+        private List<BaseEnemy> _currentEnemies = new List<BaseEnemy>();
+        private List<BaseEnemy> _deadEnemies = new List<BaseEnemy>();
         private Vector2 _groundCenter;
-        
-        public int GroundHeight => _height;
-        public int GroundWidth => _width;
         public int CountOfEnemies => _currentEnemies.Count;
         public List<BaseEnemy> CurrentEnemies => _currentEnemies;
+
         public Vector2 GroundCenter => _groundCenter;
+
         // Start is called before the first frame update
         void Start()
         {
             if (_width != 0 || _height != 0)
             {
-                _groundCenter = new Vector2(_width/2, _height/2);
+                _groundCenter = new Vector2(_width / 2, _height / 2);
                 GenerateGround();
             }
             else
@@ -36,7 +33,6 @@ namespace Core
             }
 
             StartSpawning();
-
         }
 
         private void Update()
@@ -51,29 +47,30 @@ namespace Core
 
             for (int i = 0; i < _deadEnemies.Count; i++)
             {
-                EventSystem.current.OnEnemiesDeath((int)_deadEnemies[i].GetPoints());
-                Destroy(_deadEnemies[i].gameObject);   
+                EventSystem.Current.OnEnemiesDeath((int) _deadEnemies[i].GetPoints());
+                Destroy(_deadEnemies[i].gameObject);
             }
+
             _deadEnemies.Clear();
         }
 
-        public  Vector3 GetRandomPosition()
+        public Vector3 GetRandomPosition()
         {
-            float randomX = UnityEngine.Random.value;
-            float randomZ = UnityEngine.Random.value;
+            float randomX = Random.value;
+            float randomZ = Random.value;
             float xCoord = randomX * _width;
             float zCoord = randomZ * _height;
             Vector3 newPos = new Vector3(xCoord, 0.75f, zCoord);
             return newPos;
-
         }
+
         public void AddEnemy(BaseEnemy enemy)
         {
             _currentEnemies.Add(enemy);
-            EventSystem.current.OnEnemiesChanged(CountOfEnemies);
+            EventSystem.Current.OnEnemiesChanged(CountOfEnemies);
             if (CountOfEnemies > _maxAmountOfEnemies)
             {
-                EventSystem.current.OnPlayerDefeated();
+                EventSystem.Current.OnPlayerDefeated();
             }
         }
 
@@ -82,10 +79,10 @@ namespace Core
             if (_currentEnemies.Contains(enemy))
             {
                 _currentEnemies.Remove(enemy);
-                EventSystem.current.OnEnemiesChanged(CountOfEnemies);
+                EventSystem.Current.OnEnemiesChanged(CountOfEnemies);
             }
-        
         }
+
         void StartSpawning()
         {
             StartCoroutine(StartSpawningRoutine());
@@ -98,6 +95,7 @@ namespace Core
             {
                 spawn.Spawn(this);
             }
+
             yield return null;
         }
 

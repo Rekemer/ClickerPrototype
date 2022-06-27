@@ -2,20 +2,24 @@
 using ScriptableObjects;
 using UnityEngine;
 
-public class DefaultEnemy : BaseEnemy
+namespace Enemies
 {
-    [SerializeField] private EnemyScore _score;
-    protected override void Start()
+    public class DefaultEnemy : BaseEnemy
     {
-        base.Start();
-        if (!_score)
-        {
-            Debug.LogWarning(gameObject.name + " doesnt have score set up " );
-        }
-    }
+        [SerializeField] private EnemyScore _score;
 
-    public override float GetPoints()
-    {
-        return _score.score;
+        protected override void Start()
+        {
+            base.Start();
+            if (!_score)
+            {
+                Debug.LogWarning(gameObject.name + " doesnt have score set up ");
+            }
+        }
+
+        public override float GetPoints()
+        {
+            return _score.score;
+        }
     }
 }

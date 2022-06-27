@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Core;
-using DefaultNamespace;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -9,31 +8,28 @@ namespace Tactics
 {
     public class WaveTactics : EnemyTactics
     {
-        [SerializeField]
-        private WaveDifficultySpawnSettings _difficultySpawnSettings;
+        [SerializeField] private WaveDifficultySpawnSettings _difficultySpawnSettings;
         private List<Difficulty> _difficulties;
         private GameObject _objectToSpawn;
         private Ground _ground;
-        private float timeSinceSpawningStarted =0;
+        private float timeSinceSpawningStarted = 0;
         private int _currentWave;
 
         private void Start()
         {
             _difficulties = _difficultySpawnSettings.difficulties;
-            if (_difficulties == null)
-            {
-                Debug.LogError("DefaultDifficultySpawnSettings are not initialized");
-                return;
-            }
+            if (_difficulties != null) return;
+            Debug.LogError("DefaultDifficultySpawnSettings are not initialized");
         }
 
         public override void StartSpawning(Ground ground, GameObject objectToSpawn)
         {
-            if ( ground == null || objectToSpawn == null ||  objectToSpawn == null && ground == null)
+            if (ground == null || objectToSpawn == null || objectToSpawn == null && ground == null)
             {
                 Debug.LogWarning("WaveTactics: Ground or objectToSpawn was not initialized in spawner");
                 return;
             }
+
             _objectToSpawn = objectToSpawn;
             _ground = ground;
             StartCoroutine(StartSpawningRoutine());
@@ -41,8 +37,9 @@ namespace Tactics
 
         private bool AreThereEnemies()
         {
-            return _ground.CountOfEnemies > 0 ? true : false;
+            return _ground.CountOfEnemies > 0;
         }
+
         IEnumerator StartSpawningRoutine()
         {
             int currentWave = 0;
@@ -58,27 +55,22 @@ namespace Tactics
                     {
                         // spawn enemies according to the wave
                         int amountOfEnemies = amountsOfEnemiesPerWave[this._currentWave];
-                        // Debug.Log(_currentWave);
                         SpawnWave(amountOfEnemies);
-                       
-                        //
                     }
                     else
                     {
-                       
                         //  or there are no more waves left
-                        EventSystem.current.OnEnemiesAreDefeated();
+                        EventSystem.Current.OnEnemiesAreDefeated();
                     }
-                
                 }
-           
+
                 if (_ground.CountOfEnemies >= _ground.GetMaxEnemies())
                 {
-                    EventSystem.current.OnPlayerDefeated();
+                    EventSystem.Current.OnPlayerDefeated();
                 }
+
                 yield return null;
             }
-        
         }
 
         private void SpawnWave(int amountOfEnemies)
@@ -92,7 +84,7 @@ namespace Tactics
             while (currAmount < amountOfEnemies)
             {
                 var pos = _ground.GetRandomPosition();
-                var spawnedObject = Instantiate(_objectToSpawn,pos, 
+                var spawnedObject = Instantiate(_objectToSpawn, pos,
                     Quaternion.LookRotation(new Vector3(-0.5f, 0f, -0.5f), Vector3.up));
                 // spawn enemies with correct settings
                 var enemy = spawnedObject.GetComponent<BaseEnemy>();
@@ -107,7 +99,6 @@ namespace Tactics
             }
 
             _currentWave++;
-
         }
     }
 }

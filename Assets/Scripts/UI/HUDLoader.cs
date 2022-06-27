@@ -1,16 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HUDLoader : MonoBehaviour
+namespace UI
 {
-    private void Awake()
+    public class HUDLoader : MonoBehaviour
     {
-        if (SceneManager.GetSceneByName("HUD").isLoaded == false)
+        private void Awake()
         {
-            SceneManager.LoadScene("HUD",LoadSceneMode.Additive);
+            if (SceneManager.GetSceneByName("HUD").isLoaded == false)
+            {
+                SceneManager.LoadScene("HUD", LoadSceneMode.Additive);
+            }
         }
     }
 }

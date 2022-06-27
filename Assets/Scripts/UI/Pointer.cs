@@ -1,8 +1,7 @@
-﻿using System;
-using Core;
+﻿using Core;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace UI
 {
     public class Pointer : MonoBehaviour
     {

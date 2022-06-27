@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Core;
-using DefaultNamespace;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -13,10 +12,10 @@ namespace Tactics
         private List<Difficulty> _difficulties;
         private GameObject _objectToSpawn;
         private Ground _ground;
-        private float timeSinceSpawningStarted =0;
-        private int currentDifficulty;
-        private float  _freezingTime;
-    
+        private float _timeSinceSpawningStarted = 0;
+        private int _currentDifficulty;
+        private float _freezingTime;
+
         public void Start()
         {
             _difficulties = _difficultySpawnSettings.difficulties;
@@ -25,6 +24,7 @@ namespace Tactics
                 Debug.LogWarning("DefaultDifficultySpawnSettings are not initialized");
                 return;
             }
+
             for (int i = 0; i < _difficulties.Count - 1; i++)
             {
                 if (_difficulties[i].time > _difficulties[i + 1].time)
@@ -33,12 +33,12 @@ namespace Tactics
                 }
             }
 
-            EventSystem.current.OnUsingBooster += SetFreezingTime;
+            EventSystem.Current.OnUsingBooster += SetFreezingTime;
         }
 
-        public override void StartSpawning(Ground ground,GameObject objectToSpawn )
+        public override void StartSpawning(Ground ground, GameObject objectToSpawn)
         {
-            if ( ground == null || objectToSpawn == null ||  objectToSpawn == null && ground == null)
+            if (ground == null || objectToSpawn == null || objectToSpawn == null && ground == null)
             {
                 Debug.LogWarning("DefaultTactics: Ground or objectToSpawn was not initialized in spawner");
                 return;
@@ -52,64 +52,63 @@ namespace Tactics
         private void SetFreezingTime(float time)
         {
             _freezingTime = time;
-            Invoke("UnsetFreezingTime",_freezingTime);
+            Invoke("UnsetFreezingTime", _freezingTime);
         }
 
         private void UnsetFreezingTime()
         {
             _freezingTime = 0;
         }
-    
+
         public IEnumerator StartSpawningRoutine()
         {
             //int iter = 0;
-            currentDifficulty = 0;
+            _currentDifficulty = 0;
             var timeBetweenSpawns = _difficultySpawnSettings.timeBetweenSpawns;
             var currentTime = 0f;
             while (true)
             {
-                currentTime+=Time.deltaTime;
-                timeSinceSpawningStarted += Time.deltaTime;
-                if (currentDifficulty < _difficulties.Count - 1)
+                currentTime += Time.deltaTime;
+                _timeSinceSpawningStarted += Time.deltaTime;
+                if (_currentDifficulty < _difficulties.Count - 1)
                 {
-                    if (timeSinceSpawningStarted > _difficulties[currentDifficulty].time)
+                    if (_timeSinceSpawningStarted > _difficulties[_currentDifficulty].time)
                     {
-                        currentDifficulty++;
-                   
+                        _currentDifficulty++;
+                        timeBetweenSpawns *= _difficultySpawnSettings.timeBetweenSpawnsMultiplier;
                     }
                 }
-            
+
 
                 if (currentTime > timeBetweenSpawns)
                 {
                     currentTime = 0f;
                     var pos = _ground.GetRandomPosition();
-                    var spawnedObject = Instantiate(_objectToSpawn,pos, 
+                    var spawnedObject = Instantiate(_objectToSpawn, pos,
                         Quaternion.LookRotation(new Vector3(-0.5f, 0f, -0.5f), Vector3.up));
                     // spawn enemies with correct settings
-                
                     var enemy = spawnedObject.GetComponent<BaseEnemy>();
                     if (enemy)
                     {
-                        enemy.SetHealth(_difficulties[currentDifficulty].enemyHealth);
-                        enemy.SetSpeed(_difficulties[currentDifficulty].enemySpeed);
+                        enemy.SetHealth(_difficulties[_currentDifficulty].enemyHealth);
+                        enemy.SetSpeed(_difficulties[_currentDifficulty].enemySpeed);
+                        enemy.SetTimeOfWaiting(_difficulties[_currentDifficulty].timeOfWaitingAfretReachingNewPos);
                     }
-             
-                
                 }
+
                 // check exit condition
                 if (_ground.CountOfEnemies >= _ground.GetMaxEnemies())
                 {
-                    EventSystem.current.OnPlayerDefeated();
+                    EventSystem.Current.OnPlayerDefeated();
                 }
-           
+
                 yield return new WaitForSeconds(_freezingTime);
             }
         }
 
         private void OnDisable()
         {
-            EventSystem.current.OnUsingBooster -= SetFreezingTime;
+            EventSystem.Current.OnUsingBooster -= SetFreezingTime;
         }
     }
 }

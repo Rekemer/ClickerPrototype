@@ -1,11 +1,10 @@
-using Core;
 using UnityEngine;
 
-namespace Spawns
+namespace Core
 {
-  public abstract class BaseSpawn: MonoBehaviour
-  {
-    [SerializeField] protected GameObject objectToSpawn;
-    public abstract void Spawn(Ground ground);
-  }
+    public abstract class BaseSpawn : MonoBehaviour
+    {
+        [SerializeField] protected GameObject objectToSpawn;
+        public abstract void Spawn(Ground ground);
+    }
 }

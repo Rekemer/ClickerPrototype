@@ -8,7 +8,6 @@ namespace ScriptableObjects
     {
         public List<Difficulty> difficulties;
         public float timeBetweenSpawns;
-        [Range(0f,0.5f)]
-        public float timeBetweenSpawnsMultiplier;
+        [Range(0.7f, 1f)] public float timeBetweenSpawnsMultiplier;
     }
 }

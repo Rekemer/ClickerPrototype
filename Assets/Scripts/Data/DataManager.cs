@@ -8,6 +8,7 @@ namespace Data
         private SaveData _saveData;
 
         public SaveData SaveData => _saveData;
+
         private void Awake()
         {
             _saver = new JsonSaver();
@@ -24,6 +25,5 @@ namespace Data
         {
             _saver.Save(saveData);
         }
-   
     }
 }

@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Core;
 using Data;
-using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core
+namespace UI
 {
     public class GameEndWindow : MonoBehaviour
     {
-        
         [SerializeField] private TextMeshProUGUI _endText;
         [SerializeField] private GameObject messageWindow;
         [SerializeField] private Button messageWindowButton;
@@ -22,28 +20,22 @@ namespace Core
 
         private void Start()
         {
-            
             if (_loader)
             {
                 messageWindowButton.onClick.AddListener(_loader.ReloadScene);
             }
+
             gameObject.SetActive(false);
-            EventSystem.current.OnEnemiesTooMany += GameOver;
-            EventSystem.current.OnNoMoreEnemiesAreLeft += GameWin;
+            EventSystem.Current.OnEnemiesTooMany += GameOver;
+            EventSystem.Current.OnNoMoreEnemiesAreLeft += GameWin;
         }
 
-      
-        private void GameOver( )
+
+        private void GameOver()
         {
-          
-                // show lose message
-                if (_endText)
-                {
-                    _endText.text = "You've Lost!";
-                    gameObject.SetActive(true);
-                }
-                
-            
+            if (!_endText) return;
+            _endText.text = "You've Lost!";
+            gameObject.SetActive(true);
         }
 
         private void GameWin()
@@ -60,8 +52,8 @@ namespace Core
 
         private void OnDestroy()
         {
-            EventSystem.current.OnEnemiesTooMany -= GameOver;
-            EventSystem.current.OnNoMoreEnemiesAreLeft -= GameWin;
+            EventSystem.Current.OnEnemiesTooMany -= GameOver;
+            EventSystem.Current.OnNoMoreEnemiesAreLeft -= GameWin;
         }
     }
 }

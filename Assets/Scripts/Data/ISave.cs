@@ -2,7 +2,7 @@ namespace Data
 {
     public interface ISave
     {
-        SaveData  Load();
+        SaveData Load();
         void Save(SaveData saveData);
     }
 }

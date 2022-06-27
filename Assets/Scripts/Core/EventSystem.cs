@@ -1,21 +1,25 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Core
 {
     public class EventSystem : MonoBehaviour
     {
-        public static EventSystem current;
+        public static EventSystem Current;
+
         public delegate void MyDelegate(int totalMonstersAmount);
+
         public delegate void MyDelegate2(float timeOfWaiting);
-        public MyDelegate  OnEnemiesAmountChanged;
-        public MyDelegate  OnEnemiesDeath;
-        public event MyDelegate2  OnUsingBooster;
+
+        public MyDelegate OnEnemiesAmountChanged;
+        public MyDelegate OnEnemiesDeath;
+        public event MyDelegate2 OnUsingBooster;
         public event Action OnNoMoreEnemiesAreLeft;
         public event Action OnEnemiesTooMany;
+
         private void Awake()
         {
-            current = this;
+            Current = this;
         }
 
         public void OnEnemiesChanged(int total)
@@ -42,8 +46,5 @@ namespace DefaultNamespace
         {
             OnUsingBooster?.Invoke(time);
         }
-
-
-      
     }
 }

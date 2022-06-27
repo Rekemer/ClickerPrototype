@@ -16,8 +16,10 @@ MonoBehaviour:
   - time: 5
     enemyHealth: 2
     enemySpeed: 1
+    timeOfWaitingAfretReachingNewPos: 0
   - time: 10
     enemyHealth: 8
     enemySpeed: 2
+    timeOfWaitingAfretReachingNewPos: 0
   timeBetweenSpawns: 2
-  timeBetweenSpawnsMultiplier: 0
+  timeBetweenSpawnsMultiplier: 0.9676

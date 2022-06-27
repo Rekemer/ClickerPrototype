@@ -10,7 +10,8 @@ namespace Data
 
     public class JsonSaver : ISave
     {
-        private static readonly string _fileName = Application.persistentDataPath +"/saveData1.sav";
+        private static readonly string _fileName = Application.persistentDataPath + "/saveData1.sav";
+
         public SaveData Load()
         {
             SaveData dataToLoad = new SaveData();
@@ -19,7 +20,7 @@ namespace Data
                 using (StreamReader reader = new StreamReader(_fileName))
                 {
                     var json = reader.ReadToEnd();
-                    JsonUtility.FromJsonOverwrite(json,dataToLoad);
+                    JsonUtility.FromJsonOverwrite(json, dataToLoad);
                     return dataToLoad;
                 }
             }
@@ -31,12 +32,11 @@ namespace Data
         {
             var json = JsonUtility.ToJson(saveData);
 
-            var fileStream = new FileStream(_fileName,FileMode.Create);
+            var fileStream = new FileStream(_fileName, FileMode.Create);
             using (StreamWriter writer = new StreamWriter(fileStream))
             {
                 writer.Write(json);
             }
-
         }
     }
 }

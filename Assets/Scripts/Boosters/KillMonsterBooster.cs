@@ -18,7 +18,7 @@ namespace Boosters
                     if (_audio != null)
                     {
                         _audio.Play();
-                    };
+                    }
                 }
             }
         }

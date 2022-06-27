@@ -4,26 +4,23 @@ namespace Core
 {
     public class CameraController : MonoBehaviour
     {
-    
-    
-        private Ground _ground;
-        private Camera _camera;
-    
         [SerializeField] float speed;
-        private bool firstClick;
-        private Vector3 firstPos;
-        private Vector3 currPos;
-        private Vector3 diffDir;
-        [SerializeField] private LayerMask ClickableLayerMask;
+        [SerializeField] private LayerMask _clickableLayerMask;
         [SerializeField] private int _damage;
         [SerializeField] private ParticleSystem _hitParticles;
+        private Ground _ground;
+        private Camera _camera;
+        private bool _firstClick;
+        private Vector3 _firstPos;
+        private Vector3 _currPos;
+        private Vector3 _diffDir;
+
         public bool CanMove { get; set; } = true;
+
         private void Awake()
         {
             _ground = FindObjectOfType<Ground>();
             _camera = GetComponentInChildren<Camera>();
-    
-        
         }
 
         void Start()
@@ -43,7 +40,7 @@ namespace Core
             Gizmos.color = Color.red;
         }
 
-   
+
         void Update()
         {
             if (CanMove)
@@ -57,36 +54,44 @@ namespace Core
         private void Move()
         {
             var mousePos = Input.mousePosition;
-            RaycastHit hit;
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, ClickableLayerMask))
-            {
-                return;
-            }
-            var worldCurrPos = _camera.ScreenToWorldPoint(currPos);
-            var worldFirstPos = _camera.ScreenToWorldPoint(firstPos);
+            RaycastHit hit = default;
+            if (RayCastUnderMouse(ref hit)) return;
+            var worldCurrPos = _camera.ScreenToWorldPoint(_currPos);
+            var worldFirstPos = _camera.ScreenToWorldPoint(_firstPos);
             worldCurrPos.z = 10;
             worldFirstPos.z = 10;
-            diffDir = -(worldCurrPos - worldFirstPos).normalized;
-            if (Input.GetMouseButtonDown(0) && firstClick == false)
+            _diffDir = -(worldCurrPos - worldFirstPos).normalized;
+            if (Input.GetMouseButtonDown(0) && _firstClick == false)
             {
-                firstClick = true;
-                firstPos = mousePos;
+                _firstClick = true;
+                _firstPos = mousePos;
             }
-            else if (Input.GetMouseButton(0) && firstClick == true)
+            else if (Input.GetMouseButton(0) && _firstClick)
             {
-                currPos = mousePos;
-            }
-
-            if (Input.GetMouseButton(0) && firstClick)
-            {
-                transform.Translate(diffDir * speed * Time.deltaTime);
+                _currPos = mousePos;
             }
 
-            if (Input.GetMouseButtonUp(0) && firstClick == true)
+            if (Input.GetMouseButton(0) && _firstClick)
             {
-                firstClick = false;
+                transform.Translate(_diffDir * speed * Time.deltaTime);
             }
+
+            if (Input.GetMouseButtonUp(0) && _firstClick)
+            {
+                _firstClick = false;
+            }
+        }
+
+        private bool RayCastUnderMouse(ref RaycastHit hit)
+        {
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, _clickableLayerMask))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void GetClicks()
@@ -94,9 +99,8 @@ namespace Core
             if (Input.GetMouseButtonDown(0))
             {
                 // raycast to check if it is enemy
-                RaycastHit hit;
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit,ClickableLayerMask))
+                RaycastHit hit = default;
+                if (RayCastUnderMouse(ref hit))
                 {
                     var enemy = hit.transform.GetComponent<BaseEnemy>();
                     if (enemy)
@@ -107,8 +111,7 @@ namespace Core
                         var particles =
                             Instantiate(_hitParticles, particlesPos, Quaternion.identity);
                         particles.Play(true);
-                        Destroy(particles.gameObject,1f);
-                        
+                        Destroy(particles.gameObject, 1f);
                     }
                 }
             }

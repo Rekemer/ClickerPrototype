@@ -1,56 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace UI
 {
     public class PointersManager : MonoBehaviour
     {
         [SerializeField] private Pointer _prefabPointer;
-        protected Camera _camera;
-        protected Ground _ground;
-        private List<BaseEnemy> enemiesBeyondScreen ;
-        public Pointer[] _pointers = new Pointer[10];
-        private Vector3 focusCamera;
+        private List<BaseEnemy> _enemiesBeyondScreen;
+        private Pointer[] _pointers = new Pointer[10];
+        private Vector3 _focusCamera;
+        private Camera _camera;
+        private Ground _ground;
+
+
         private void Awake()
         {
             _camera = FindObjectOfType<Camera>();
             _ground = FindObjectOfType<Ground>();
-            for (int i =0; i!=_pointers.Count();i++ )
+            for (int i = 0; i != _pointers.Count(); i++)
             {
-                _pointers[i] =  Instantiate(_prefabPointer, Vector3.zero, Quaternion.identity);
+                _pointers[i] = Instantiate(_prefabPointer, Vector3.zero, Quaternion.identity);
                 _pointers[i].transform.SetParent(transform);
             }
         }
 
         private void Start()
         {
-            focusCamera = _camera.WorldToScreenPoint(_camera.transform.parent.position);
+            _focusCamera = _camera.WorldToScreenPoint(_camera.transform.parent.position);
         }
 
         private void Update()
-        { 
-            enemiesBeyondScreen = FindEnemiesBeyondScreen();
-            SetPointers(enemiesBeyondScreen);
+        {
+            _enemiesBeyondScreen = FindEnemiesBeyondScreen();
+            SetPointers(_enemiesBeyondScreen);
             UpdatePointers();
         }
 
         private void UpdatePointers()
         {
-            foreach (var pointer in _pointers)    
+            foreach (var pointer in _pointers)
             {
-                
-                if (!enemiesBeyondScreen.Contains(pointer.GetEnemy()))
+                if (!_enemiesBeyondScreen.Contains(pointer.GetEnemy()))
                 {
                     pointer.SetEnemy(null);
                     pointer.gameObject.SetActive(false);
                 }
                 else
                 {
-                    var halfWidth = CalculateRelativePointPosition(pointer.GetEnemy(), focusCamera, out var relPosOfPointer);
-                    //+ new Vector3(halfWidth,_camera.pixelHeight/2f,0);
+                    var halfWidth =
+                        CalculateRelativePointPosition(pointer.GetEnemy(), _focusCamera, out var relPosOfPointer);
                     pointer.GetComponent<RectTransform>().anchoredPosition = relPosOfPointer;
                 }
             }
@@ -58,19 +58,17 @@ namespace DefaultNamespace
 
         void SetPointers(List<BaseEnemy> enemiesToPointTo)
         {
-           
             foreach (var enemy in enemiesToPointTo)
             {
-                var halfWidth = CalculateRelativePointPosition(enemy, focusCamera, out var relPosOfPointer);
+                var halfWidth = CalculateRelativePointPosition(enemy, _focusCamera, out var relPosOfPointer);
                 Pointer p = GetFreePointer();
                 if (p != null)
                 {
                     p.SetEnemy(enemy);
                     p.gameObject.SetActive(true);
-                    p.GetComponent<RectTransform>().anchoredPosition = relPosOfPointer+ new Vector3(halfWidth,_camera.pixelHeight/2f,0);
+                    p.GetComponent<RectTransform>().anchoredPosition =
+                        relPosOfPointer + new Vector3(halfWidth, _camera.pixelHeight / 2f, 0);
                 }
-            
-
             }
         }
 
@@ -78,8 +76,8 @@ namespace DefaultNamespace
         {
             var enemyPos = _camera.WorldToScreenPoint(enemy.transform.position);
             var dir = (enemyPos - focusCamera).normalized;
-            float halfHeight = _camera.pixelHeight / 2f;
-            float halfWidth = _camera.aspect * halfHeight;
+            var halfHeight = _camera.pixelHeight / 2f;
+            var halfWidth = _camera.aspect * halfHeight;
             relPosOfPointer = (dir * halfWidth);
             return halfWidth;
         }
@@ -96,6 +94,7 @@ namespace DefaultNamespace
 
             return null;
         }
+
         List<BaseEnemy> FindEnemiesBeyondScreen()
         {
             List<BaseEnemy> allEnemies = _ground.CurrentEnemies;
@@ -110,14 +109,11 @@ namespace DefaultNamespace
                     {
                         enemiesInScreen.Add(enemy);
                     }
-                    
                 }
-                
             }
 
             var enemiesBeyond = allEnemies.Except(enemiesInScreen).ToList();
             return enemiesBeyond;
-            
         }
     }
 }

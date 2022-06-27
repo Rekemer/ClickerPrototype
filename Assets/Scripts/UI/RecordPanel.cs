@@ -1,76 +1,77 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Core;
 using Data;
-using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 
-public class RecordPanel : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI monsterCountText;
-    [SerializeField] private TextMeshProUGUI recordText;
-    [SerializeField] private TextMeshProUGUI currentCountText;
-    private int currentCount;
-    private int currentRecord;
-    private DataManager _dataManager;
-    private void Awake()
+    public class RecordPanel : MonoBehaviour
     {
-        _dataManager = FindObjectOfType<DataManager>();
-        if (_dataManager)
+        [SerializeField] private TextMeshProUGUI monsterCountText;
+        [SerializeField] private TextMeshProUGUI recordText;
+        [SerializeField] private TextMeshProUGUI currentCountText;
+        private int _currentCount;
+        private int _currentRecord;
+        private DataManager _dataManager;
+
+        private void Awake()
         {
-            _dataManager.Load();
-        }
-    } 
-    void Start()
-    {
-        if (_dataManager != null)
-        {
-            var save = _dataManager.SaveData;
-            if (save != null)
+            _dataManager = FindObjectOfType<DataManager>();
+            if (_dataManager)
             {
-                recordText.text = "Record " + save.record.ToString();
+                _dataManager.Load();
             }
-            
-            
         }
-        EventSystem.current.OnEnemiesAmountChanged += UpdateMonsterCount;
-        EventSystem.current.OnEnemiesDeath += UpdateCurrentCount;
-    }
 
-
-    public void UpdateCurrentCount(int count)
-    {
-        currentCountText.text = (Int16.Parse(currentCountText.text) +count).ToString();
-       currentCount += count;
-        if (currentCount > currentRecord)
+        void Start()
         {
-            UpdateRecord();
-        }
-    }
+            if (_dataManager != null)
+            {
+                var save = _dataManager.SaveData;
+                if (save != null)
+                {
+                    recordText.text = "Record " + save.record.ToString();
+                }
+            }
 
-    private void UpdateRecord()
-    {
-        SaveData saveData = new SaveData();
-        saveData.record = currentCount;
-        currentRecord = currentCount;
-        recordText.text = "Record: " + currentRecord.ToString();
-        if (_dataManager)
+            EventSystem.Current.OnEnemiesAmountChanged += UpdateMonsterCount;
+            EventSystem.Current.OnEnemiesDeath += UpdateCurrentCount;
+        }
+
+
+        private void UpdateCurrentCount(int count)
         {
-            _dataManager.Save(saveData);
+            currentCountText.text = (Int16.Parse(currentCountText.text) + count).ToString();
+            _currentCount += count;
+            if (_currentCount > _currentRecord)
+            {
+                UpdateRecord();
+            }
         }
-    }
 
-    public void UpdateMonsterCount(int currentMonsterAmount)
-    {
-        monsterCountText.text = "Monsters " + currentMonsterAmount.ToString();
-    }
-   
-  
-    private void OnDisable()
-    {
-        EventSystem.current.OnEnemiesAmountChanged -= UpdateMonsterCount;
-        EventSystem.current.OnEnemiesDeath -= UpdateCurrentCount;
+        private void UpdateRecord()
+        {
+            var saveData = new SaveData();
+            saveData.record = _currentCount;
+            _currentRecord = _currentCount;
+            recordText.text = "Record: " + _currentRecord.ToString();
+            if (_dataManager)
+            {
+                _dataManager.Save(saveData);
+            }
+        }
 
+        private void UpdateMonsterCount(int currentMonsterAmount)
+        {
+            monsterCountText.text = "Monsters " + currentMonsterAmount.ToString();
+        }
+
+
+        private void OnDisable()
+        {
+            EventSystem.Current.OnEnemiesAmountChanged -= UpdateMonsterCount;
+            EventSystem.Current.OnEnemiesDeath -= UpdateCurrentCount;
+        }
     }
 }
