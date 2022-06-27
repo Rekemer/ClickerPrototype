@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Core
 {
@@ -21,17 +22,20 @@ namespace Core
         private float _timeOfWaitingAfterReachingNewPos ;
         private bool _isMoving;
         private State _state;
+        [SerializeField] private Image _healthBar;
+        private Material _healthBarMaterial;
+        private float maxHealth;
         protected virtual void Awake()
         {
             _ground = FindObjectOfType<Ground>();
             _animator = GetComponent<Animator>();
+            _healthBarMaterial = _healthBar.GetComponent<Image>().material;
         }
     
         protected virtual void Start()
         {
             _state = State.ACTIVE;
-            var height = _ground.GroundHeight;
-            var width = _ground.GroundWidth;
+            maxHealth = _health;
             _ground.AddEnemy(this);
             transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
             Move();
@@ -109,6 +113,7 @@ namespace Core
         public void GetDamage(int damage)
         {
             _health -= damage;
+            _healthBarMaterial.SetFloat("_Health",_health/maxHealth);
             if (_health <= 0)
             {
                

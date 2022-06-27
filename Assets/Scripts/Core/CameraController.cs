@@ -16,6 +16,7 @@ namespace Core
         private Vector3 diffDir;
         [SerializeField] private LayerMask ClickableLayerMask;
         [SerializeField] private int _damage;
+        [SerializeField] private ParticleSystem _hitParticles;
         public bool CanMove { get; set; } = true;
         private void Awake()
         {
@@ -95,6 +96,13 @@ namespace Core
                     if (enemy)
                     {
                         enemy.GetDamage(_damage);
+                        var particlesPos = enemy.transform.position +
+                                           (_camera.transform.position - enemy.transform.position).normalized;
+                        var particles =
+                            Instantiate(_hitParticles, particlesPos, Quaternion.identity);
+                        particles.Play(true);
+                        Destroy(particles.gameObject,1f);
+                        
                     }
                 }
             }

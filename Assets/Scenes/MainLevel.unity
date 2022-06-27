@@ -173,6 +173,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _damage: 1
+  _hitParticles: {fileID: 7226583673155636403, guid: a2ab56839e1c9504ea9d141e95d0b16b, type: 3}
 --- !u!114 &363266055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +422,63 @@ MonoBehaviour:
   _prefabGroundTile: {fileID: 1606643988052616, guid: 8bf7087f7bb7a1844a75fc35b8267a0f, type: 3}
   _spawns:
   - {fileID: 628953320}
+--- !u!1001 &1720318942
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921177, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259778603878921183, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
+      propertyPath: m_Name
+      value: SlimePBR
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 25e92246f89a71c4eae71a59e38baf26, type: 3}
 --- !u!114 &1724758778 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2663429092596346148, guid: a0b422545146d8d46ba34c6a058ae7a2, type: 3}
