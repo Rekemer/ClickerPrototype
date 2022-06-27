@@ -8,6 +8,6 @@ namespace ScriptableObjects
         public int time;
         public int enemyHealth;
         public int enemySpeed;
-        public int timeOfWaitingAfretReachingNewPos;
+        public float timeOfWaitingAfretReachingNewPos;
     }
 }

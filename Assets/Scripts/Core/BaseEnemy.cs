@@ -76,7 +76,7 @@ namespace Core
             while (_isMoving)
             {
                 Vector3 newPos = _ground.GetRandomPosition();
-                transform.rotation = Quaternion.LookRotation((newPos - transform.position).normalized, Vector3.up);
+                transform.rotation = Quaternion.LookRotation((newPos - transform.position).normalized);
 
                 int iter = 0;
                 while ((transform.position - newPos).sqrMagnitude > 4f && iter < 200)
