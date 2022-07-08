@@ -3,6 +3,8 @@ Game must be started from Main Menu Scene .To be in comfortable resolution you c
 
 portfolio https://docs.google.com/document/d/10MSQpjUQW7RsYW0tjdgq_sLv8VF5tSqyQIbVKhRDMyg/edit
 
+gameplay: https://www.instagram.com/p/CfWUNHgD1HT/
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
